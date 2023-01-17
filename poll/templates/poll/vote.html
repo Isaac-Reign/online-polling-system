@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poll | Vote</title>
+
+</head>
+<body>
+
+<style type="text/css">
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.body {
+  background: rgba(0, 0, 0, 0.4);
+  overflow-y: hidden;
+}
+
+.type {
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 35px;
+  background-color: #123;
+  padding: 20px 0;
+  text-align: center;
+  width: 100%;
+  color: #a1acfa;
+}
+
+.student, .ap-buttons, ul  {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+ul {
+  flex-direction: row;
+  margin: 20px 0;
+}
+ul a {
+  margin: 0 8px;
+  text-decoration: none;
+  border-left: 2px solid #777;
+  padding: 5px;
+
+}
+.student {
+  position: relative;
+  box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.5);
+  max-width: 300px;
+  width: 90%;
+  margin: 55px auto
+}
+
+
+.image-box {
+  margin: 30px auto;
+  width: 150px;
+  height: 150px;
+  position: relative;
+  background-color: #304;
+  padding: 5px;
+}
+
+.image-box img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 100%;
+  z-index: 10;
+}
+
+.name {
+  border-bottom: 2px solid #fcc;
+  margin: 5px 0;
+}
+
+.a-btn {
+  background-color: #302;
+  text-decoration: none;
+  padding: 8px 20px;
+  margin: 5px;
+  font-size: 18px;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 3px 3px lightgreen;
+}
+
+</style>
+  <main>
+      {% if poll %}
+      <h2 class="type">Position for {{q}}</h2>
+
+      <ul>
+        <a href="{% url 'poll_board' %}">Vote Section</a>
+        
+      </ul>
+      <hr>
+
+        {% for p in poll %}
+
+          <div class="student">
+               <div class="image-box">
+                  <img src="{{p.person_photo.url}}" alt="image" class="image">
+              </div>
+              <div>
+                  <h3 class="name">Name: <span class="name">{{p.person_name}}</span></h3>
+                  <h4 class="name">Position: {{p.person_position}}</span></h4>
+                  <h4 class="name">Course: {{p.person_course}}</span></h4>
+              </div>
+
+              <div class="ap-buttons">
+                  <a class="a-btn" href="{% url 'submit_vote' p.id %}?q={{q}}">Vote</a>
+              </div>
+          </div>
+
+        {% endfor %}
+
+      {% else %}
+        <h2 class="type">No contextant for {{q}} yet!</h2>
+      {% endif %}
+  </main>
+
+</body>
+</html>

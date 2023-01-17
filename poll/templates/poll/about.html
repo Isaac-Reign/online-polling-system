@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+</head>
+<body>
+    <style>
+        * {
+            font-family: sans-serif;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            width: 90%;
+        }
+        .c1 {
+            padding: 5px 10px;
+            background: steelblue;
+        }
+        h2 {
+            margin: 30px 0;
+            color: orange;
+        }
+        p {
+            line-height: 1.5;
+            color: #fff;
+            margin: 15px 0;
+        }
+
+        .img-box {
+            width: 250px;
+            height: 280px;
+            float: right;
+            margin: -5px 0 0 8px;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background-position: center;
+            background-size: cover;
+        }
+        .a {
+            padding: 3px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        @media(max-width: 430px){
+            .img-box {
+                float: none;
+                margin: 0 auto;
+                width: 80%;
+                height: 200px;
+            }
+            h2 {
+                text-align: center;
+            }
+    </style>
+    <div class="container">
+        <div class='c1'>
+            <h2>About This Website</h2>
+            <div class="img-box">
+                <img src="{% static 'poll/images/poll.png' %}" alt="website">
+            </div>
+            <p>This site is meant to help enhance the abiliy for person to create a poll for people to vote.</p>
+            <p>This site is free and user will have unlimited access to all the content and even more if they have account.</p>
+            <p>If you have an issue, at the <a class="a" href="{% url 'poll_board' %}">home</a> page, the top right conner you can see a <a class="a" href="{% url 'messages' %}">messages</a> link, click on it to send a message to ICT master, or view other messages</p>
+            <p>To be able to vote or send messages, you must <a href="{% url 'login_user' %}" class="a">login</a> if you have account or <a class="a" href="{% url 'register_user' %}">register</a> if you don't</p>
+            <p>In the <a href="{% url 'voters' %}" class='a'>Voters</a> page, all people who have register will be display, and only you and ICT master can see your 'phone number'</p>
+            <p>ICT master have to give you permission befor you can vote</p>
+            <p>The ICT master will have to start the vote befor you can vote. ICT master can also end the registration, can also make users (you) view the results or maybe when the voting is over</p>
+            <p>A user can vote only onece at a 'section'. The 'section' is filtered base on the position of the poll been created. e.g if the ICT master have these sections, Senior prefect, CO, Prep prefect, peoples who have context for these position are base on these 'section', so if a person vote for, Senior prefect, he/she can't vote in the same section again, onelse the next section.</p>
+        </div>
+
+        <div class='c1'>
+            <h2>About The Developer</h2>
+            <div class="img-box">
+                <img src="{% static 'poll/images/developer.png' %}" alt="Developer">
+            </div>
+            <p>Hi, I'm Isaac, a full-stack web developer. I work as a freelancer,</p>
+            <p>I'm hard working and motivated that if you choose to work with me on a project, there will be constant line of communication to contact me via phone or email at any point in time</p>
+            <p>I have extensive experience working both alone as part of a team on often time-sensitive, challenging web development projects that outstanding creative and technical capabilities and the ability to ensure all work is optimize across a width of platform.</p>
+            <p>I'm a good UI designer and also a great back-end developer and no matter how small your project might be, I will make sure it suit your needs, because I love my work. Pease let me know in 10 minutes time, to set-up a zoom call, to see if this can be a good fit. Love to here from you.</p>
+
+            <b>Contact Details (for business only):</b>
+            <p>Email: <a href="mailto:isaac.developer99@gmail.com" class="a" target="_blank" rel="tel noopener noreferrer">isaac.develoer99@gmail.com</a></p>
+            <p>My portfolio website: <a target="_blank" class="a" rel="noopener noreferrer" href="htpps://isaac.portfolio.onrender.com/#intro">https://isaac-portfolio.onrender.com</a></p>
+
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poll | Students</title>
+
+</head>
+<body>
+
+<style type="text/css">
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: sans-serif;
+}
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+.body {
+  background: rgba(0, 0, 0, 0.4);
+  overflow-y: hidden;
+}
+
+.type {
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 35px;
+  background-color: #123;
+  padding: 20px 0;
+  text-align: center;
+  width: 100%;
+  color: #a1acfa;
+}
+
+.student, .form, ul,.btn-flex  {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.t-box {
+  border: 2px solid #032;
+  margin: 5px;
+}
+.t-box p{
+  text-align: center;
+  color: #fa0;
+  margin-bottom: -8px;
+}
+
+ul, .btn-flex {
+  flex-direction: row;
+  margin: 20px 0;
+}
+ul a {
+  margin: 0 3px;
+  text-decoration: none;
+  border-left: 2px solid #777;
+  border-bottom: 2px solid #777;
+  padding: 2px;
+  font-size: 13px;
+}
+
+.form {
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 5px;
+  position: relative;
+}
+
+.form input {
+  flex: 1;
+  width: 80%;
+  max-width: 300px;
+  padding: 5px;
+  border: 2px solid purple;
+  border-radius: 15px;
+  padding-right: 38px;
+}
+
+.form button {
+  margin-left: -42px;
+  background-color: steelblue;
+  color: #fff;
+  padding: 7px 0;
+  border: none;
+  cursor: pointer;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+ul a:hover {
+  opacity: .4;
+}
+
+b {
+  font-style: italic;
+  color: steelblue;
+  margin: 10px 0;
+  display: block;
+}
+
+.student {
+  position: relative;
+  box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.5);
+  max-width: 300px;
+  width: 90%;
+  margin: 55px auto
+}
+
+.image-box {
+  margin: 30px auto;
+  margin-top: 15px;
+  width: 150px;
+  height: 150px;
+  position: relative;
+  background-color: #304;
+  padding: 5px;
+}
+
+.image-box img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 100%;
+  z-index: 10;
+}
+
+.name {
+  border-bottom: 2px solid #fcc;
+  margin: 5px 0;
+}
+
+.a-btn {
+  z-index: 100;
+  background-color: #302;
+  text-decoration: none;
+  padding: 8px 20px;
+  margin: 5px;
+  font-size: 18px;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 3px 3px steelblue;
+}
+#delete-btn {
+  cursor: pointer;
+}
+.btn-flex {
+  justify-content: space-around;
+  margin-top: 20px;
+}
+</style>
+  <main>
+      
+        {% if q %}
+          <h2 class="type">{{q}}</h2>
+
+        {% else %}
+           {% if voters %}
+          <h2 class="type">All students</h2>
+           {% else %}
+          <h2 class="type">No student have register yet</h2>
+           {% endif %}
+        {% endif %}
+
+      <div class="t-box">
+        <p>Filtered by students ranges</p>
+        <ul>
+          <a href="{% url 'voters' %}">All Students</a>
+          {% for s in student_range %}
+            <a href="{% url 'voters' %}?q={{s}}">{{s}}</a>
+          {% endfor %}
+        </ul>
+       <form method="GET" class='form'>
+          <input type="search" placeholder="search name, year range, course or phone..." required name="q">
+          <button>Search</button>
+        </form>
+
+      </div>
+      <b>{{voters.count}} students available</b>
+      <b class="home">Click to go: <a href="{% url 'poll_board' %}" >Vote Home</a></b>
+      <b class="home">Click to go: <a href="{% url 'poll_results' %}" >Results Home</a></b>
+
+      <hr>
+      {% if all_users and request.user.is_superuser %}
+      <form method="POST" id="form-submit">
+         {% csrf_token %}
+        <b class="a-btn btn-flex">{{all_users.count}}, registered users. <button class="a-btn" id="delete-btn">Delete All</button></b>
+      </form>
+      {% endif %}
+
+        {% for p in voters %}
+        <div class="student">
+          {% if request.user.is_superuser%}
+            
+          <div class="ap-buttons">
+              <a class="a-btn" href="{% url 'can_vote' p.id %}">Can Vote</a>
+              {% if p.can_vote == True %}
+              <span style="position: absolute; right: 5px; top: 0; font-size: 18px; color: green;">Yes</span>
+              {% else %}
+              <span style="position: absolute; right: 5px; top: 0; font-size: 18px; color: red;">No</span>
+              {% endif %}
+          </div>
+
+          <div class="image-box">
+                <img src="{{p.profile_picture.url}}" alt="image" class="image">
+            </div>
+            <div style="border-left: 5px solid steelblue; padding: 5px;">
+                <h3 class="name">Name: <span class="names">{{p.relation}}</span></h3>
+                <h4 class="name">Year range: <span class="names">{{p.student_range}}</span></h4>
+                <h4 class="name">Course: <span class="names">{{p.your_course}}</span></h4>
+                <h4 class="name">Phone num: <span class="names">{{p.phone_number}}</span></h4>
+            </div>
+  
+          {% else %}
+            
+
+            <div class="image-box">
+                <img src="{{p.profile_picture.url}}" alt="image" class="image">
+            </div>
+            <div style="border-left: 5px solid steelblue; padding: 5px;">
+                <h3 class="name">Name: <span class="names">{{p.relation}}</span></h3>
+                <h4 class="name">Year range: <span class="names">{{p.student_range}}</span></h4>
+                <h4 class="name">Course: <span class="names">{{p.your_course}}</span></h4>
+                {% if request.user == p.relation%}
+                <h4 class="name">Phone num: <span class="names">{{p.phone_number}}</span></h4>
+                {% else %}
+                <h4 class="name">Phone num: <span class="names">{{phone_num}}</span></h4>
+
+                {% endif %}
+            </div>
+          {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+  </main>
+
+  <script type="text/javascript">
+    let titleType = document.querySelector('.type').innerText;
+    let names = document.querySelectorAll('.names');
+    names.forEach(n => {
+      if (n.innerText.toLowerCase().includes(titleType.toLowerCase())){
+        n.style.color = 'green'
+      }
+    });
+    {% if request.user.is_superuser %}
+    document.getElementById('delete-btn').addEventListener('click', (e) => {
+      ms = window.confirm("This will delete all the registered users")
+      if (!ms) {
+        e.preventDefault()
+      } 
+    });
+    {% endif %}
+  </script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vote | Home</title>
+</head>
+{% load static %}
+<body>
+  <style>
+    *{
+      font-family: sans-serif;
+    }
+    ul, .link-c, .link-c2 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .container {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    nav {
+      position: absolute;
+      top: 170px;
+      width: 195px;
+      height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: .3s;
+      z-index: 2000;
+      background: #032;
+      padding: 20px 8px;
+      pointer-events: none;
+    }
+    .display-nav {
+      opacity: 1;
+      height: 180px;
+      pointer-events: all;
+    }
+    .card div {
+      margin: 15px 0;
+      color: #ccc;
+      font-size: 17px;
+    }
+    .card button {
+      width: 80%;
+      padding: 10px 0;
+      border: none;
+      background: blueviolet;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .card li {
+      margin-top: 10px;
+      color: #fff;
+    }
+    .card li a {
+      color: #fff;
+      font-size: 17px;
+    }
+    .type {
+      text-align: center;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-size: 35px;
+      background-color: crimson;
+      padding: 15px 5px;
+      margin-bottom: 50px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .ul {
+      flex-direction: row;
+      margin: 0 20px 0 0;
+    }
+
+    ul a {
+      margin: 0 8px;
+      margin-bottom: 20px;
+      padding: 8px;
+      text-decoration: none;
+      color: #fff;
+    }
+    h4 {
+      margin: 18px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+    h4 a {
+      text-decoration: none;
+      background: purple;
+      color: #fff;
+      border-radius: 5px;
+      padding: 10px;
+    }
+    .messages {
+      position: absolute;
+      top: 125px;
+      background: hsl(200, 50%, 20%);
+      padding: 7px;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      z-index: 2000;
+    }
+
+    .messages {
+      right: 20px; 
+      text-decoration: none;
+      padding: 10px;
+    }
+    .messages::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: -2px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: violet;
+      padding: 5px;
+    }
+
+    .a {
+      background: #12afa3;
+    }
+    .link-c {
+      justify-content: flex-end;
+      flex-direction: row;
+      position: relative;
+    }
+    .link-c2 {
+      align-items: flex-start;
+      margin-top: -5px;
+    }
+    .link-c2 span {
+/*      color: #fff; opacity: .7;*/
+        font-style: normal
+    }
+    .link {
+      border-radius: 2px;
+      color: #3f0882ba;
+      font-style: italic;
+      padding: 10px;
+      text-decoration: none;
+    }
+    .link2 {
+      background: blueviolet;
+      margin-top: 3.5px;
+      border-radius: 8px;
+      color: #fff;
+    }
+    .ul {
+      margin-top: 80px;
+    }
+    .ul a {
+      background: steelblue;
+      border-radius: 5px;
+    }
+    .img-box {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      background: #032;
+      border-radius: 8px;
+      margin-top: -10px;
+      margin-right: 5px;
+    }
+    .img-box img {
+      border-radius: 8px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background-position: center;
+    }
+    .img-box::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: lightgreen;
+      padding: 5px;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    @media(max-width: 330px){
+      .admin, .messages {
+        top: 160px;
+      }
+      .messages {
+        right: -10px
+      }
+      nav {
+        top: 200px;
+      }
+      .ul {
+        margin: 90px 0 0 -20px;
+      }
+    }
+  </style>
+    <div class="container">
+      <h1 class="type">Results for the casted vote</h1>
+        <a href="{% url 'messages' %}" class="messages">Messages</a>
+
+        <ul class="ul">
+           <a href="{% url 'poll_board' %}" >Poll</a>
+           <a href="{% url 'voters' %}" >Voters</a>
+           <a href="{% url 'about' %}">About</a>
+        </ul>
+      <div class="link-c">
+        {% if request.user.is_authenticated %}
+        {% if request.user.is_superuser %}
+              <div class="img-box"><img src="{% static 'poll/images/developer.png' %}"></div>
+        {% else %}
+              <div class="img-box"><img src="{{request.user.completeregistration.profile_picture.url}}"></div>
+            {% endif %}
+        <div class="link-c2">
+          <span class="link">Hello, {{request.user}}</span>
+              <a class="link link2" href="/logout_user/" style="color: orange">Logout</a>
+        </div>  
+
+        {% else %}
+            <div class="img-box"><img src="{% static 'poll/images/anonymous-user.jpg' %}" style="border-radius: 0"></div>
+        <div class="link-c2">
+          <span class="link">Hello, new user</span>
+              <a class="link link2" href="/register_user/" style="color: #fff; opacity: .7; font-style: normal">register or login</a>
+        </div>  
+      
+        {% endif %}
+      </div>
+      <hr>
+      <li style="margin-top: 8px; color: steelblue;">Select a section to view results, each section is filtered.</li>
+
+      {% for p in position %}
+      <h4>
+        <a href="{% url 'results' %}?q={{p.person_position}}" class="a">Results for: {{p.person_position}}</a>
+      </h4>
+      {% endfor %}
+
+    </div>
+
+    <script type="text/javascript">
+      const navbar = document.getElementById('navbar');
+      const settings = document.querySelector('.admin');
+
+      settings.addEventListener('click', () => {
+        navbar.classList.toggle('display-nav');
+      })
+    </script>
+</body>
+</html>

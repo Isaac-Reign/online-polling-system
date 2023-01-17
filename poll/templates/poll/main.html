@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Vote | Home</title>
+</head>
+
+<body>
+{% if messages %}
+
+<style type="text/css">
+	.mas {
+		position: absolute;
+		top: 10px;
+		border-radius: 5px;
+		transition: .3s;
+		left: 50%;
+		right: 50%;
+		transform: translate(-50%, 10%);
+		background-color: steelblue;
+		padding: 10px;
+		text-align: center;
+		width: 90%;
+		max-width: 800px;
+		color: #fff;
+		z-index: 2000;
+		font-family: sans-serif;
+		font-size: 18px;
+	}
+	.mas-container {
+		position: relative;
+		display: flex;
+		justify-content: flex-end;
+	}
+	.mas p {
+		margin: 8px 0;
+	}
+	.mas .close {
+		background-color: violet;
+		padding: 8px 21px;
+		border-radius: 8px;
+		cursor: pointer;
+	}
+	.container {
+		background-color: rgba(0, 0, 0, 0.175);
+		filter: blur(20px);
+	}
+	.remove-container {
+		background-color: inherit;
+		filter: blur(0);
+	}
+	.display-mas {
+		opacity: 0;
+		pointer-events: none;
+		top: -100px;
+	}
+</style>
+
+<div class="mas">
+		{% for ms in messages %}
+		<p>{{ms}}</p>
+		{% endfor %}
+	<div class="mas-container">
+		<div class="close">OK</div>
+	</div>
+</div>
+<script type="text/javascript">
+	document.querySelector('.close').addEventListener('click', () => {
+		document.querySelector('.mas').classList.add('display-mas');
+		document.querySelector('.container').classList.add('remove-container');
+	})
+
+</script>
+{% endif %}
+{% block content %}
+
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-shadow: border-box;
+}
+
+body {
+    background: hsl(200deg, 70%, 40%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+h1, h2, h3 {
+	color: blueviolet;
+	line-height: 1.5;
+	text-align: center;
+
+}
+.intro {
+	border: 3px solid green;
+	border-radius: 20px;
+	padding: 8px;
+	margin: 20px 0;
+	background: #032;
+}
+
+li {
+	line-height: 1.5;
+	color: rgba(150, 222, 255, 0.8);
+	font-size: 18px;
+	font-family: sans-serif;
+	text-align: center;
+}
+

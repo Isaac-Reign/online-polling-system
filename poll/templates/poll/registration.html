@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible", content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Accounts</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'poll/css/forms.css' %}">
+</head>
+<body>
+	<style type="text/css">
+		li {
+			color: red;
+			font-size: 13px;
+			list-style: none;
+		}
+	</style>
+	<main class="card">
+
+		<form method="POST" enctype="multipart/form-data">
+			<h2 class="title">Register if only you don't have account</h2>
+			{% csrf_token %}
+
+			{{form}}
+			<p>Already have account? <a href="{% url 'login_user' %}">Login</a></p>
+
+			<input type="submit">
+		</form>
+	</main>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible", content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Accounts</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'poll/css/forms.css' %}">
+</head>
+<body>
+
+	<main class="card">
+		<p class="title" style="margin-bottom: 50px;">Fill in the form to complete your registraiontion</p>
+		<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			<label>Select school range:</label>
+			{{form.student_range}}
+
+			<label for="id_your_course">Choose your course:</label>
+			{{form.your_course}}
+
+			<label for="id_phone_number">Enter phone number:</label>
+			{{form.phone_number}}
+
+			<label for="id_profile_picture">Choose a clear photo of your face:</label>
+			{{form.profile_picture}}
+
+            <div class="hide">
+                <p class="user">
+                    {{form.relation}}
+                </p>
+                <p id="request">
+                    {{request.user.id}}
+                </p>
+                 
+                <label for="id_profile_picture">Can vote:</label>
+                {{form.can_vote}}
+            </div>
+
+			<input type="submit" name="">
+		</form>
+	</main>
+
+	 <script type="text/javascript">
+        hidden = document.querySelector('.hide');
+        hidden.style.position = 'absolute'
+        hidden.style.opacity = 'hidden'
+        hidden.style.pointerEvent = 'none'
+        hidden.style.opacity = '0'
+
+        const submit = document.querySelector("input[type='submit']");
+        submit.addEventListener('click', (e) => {
+            const phone_number = document.getElementById('id_phone_number').value;
+            if (phone_number.length != 10){
+            e.preventDefault()
+            alert('Incorrect phone number')
+            }
+        })
+        const user = document.getElementById('id_relation').value = document.getElementById('request').innerText;
+    </script>
+</body>
+</html>

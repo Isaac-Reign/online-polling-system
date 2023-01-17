@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room</title>
+    <link rel="stylesheet" href="{% static 'poll/css/messages.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <section>
+
+            <div class="nav-button"><img src="{% static 'poll/images/prev.png' %}" alt="">Menu</div>
+            <nav>
+                <div class="info-container">
+
+                    <a href="{% url 'poll_board' %}" class="info-count">
+                        <div>Vote Home</div>
+                    </a>
+
+                    <a href="{% url 'poll_results' %}" class="info-count">
+                        <div>Results Home</div>
+                    </a>
+
+                    <a href="{% url 'voters' %}" class="info-count">
+                        <div>Voters</div>
+                    </a>
+                    <a href="{% url 'about' %}" class="info-count">
+                        <div>About</div>
+                    </a>
+
+                </div>
+            </nav>
+
+                <div class="chat-container">
+                    <div class="chat-body">
+                        {% for message in messages %}
+                        {% if request.user == message.user %}
+                        <div id="display">
+
+                            <div class="display darker user-2">
+                                {% if message.user.completeregistration.profile_picture %}
+                                    <img src="{{message.user.completeregistration.profile_picture.url}}" alt="" class="display-img">
+                                    <b>{{message.user}}</b>
+                                    <p style="color: #023cac;">{{message.message}}</p>
+                                    
+                                {% else %}
+                                    <img src="{% static 'poll/images/anonymous-user.jpg' %}">
+
+                                    <b>ICT master</b>
+                                    <p style="color: #023cac;">{{message.message}}</p>
+                                {% endif %}
+
+                                
+                                <span class="time-left">{{message.time|timesince}}</span>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div id="display">
+
+                            <div class="display darker">
+                                {% if message.user.completeregistration.profile_picture %}
+                                    <img src="{{message.user.completeregistration.profile_picture.url}}" alt="" class="display-img">
+                                    <b>{{message.user}}</b>
+                                    <p>{{message.message}}</p>
+                                {% else %}
+                                    <img src="{% static 'poll/images/anonymous-user.jpg' %}">
+                                    <b>ICT master</b>
+                                    <p>{{message.message}}</p>
+                                {% endif %}
+
+                                
+                                <span class="time-left">{{message.time|timesince}}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <div class="chat-action">
+                        <form method="POST" id="scroll">
+                            {% csrf_token %}
+                            <div class="card">
+                                <div class="files"><img src="{% static 'poll/images/link.png' %}" alt=""></div>
+                                <textarea id="" required placeholder="Type message..." name="message"></textarea>
+                                <button type="submit">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <input type="text" hidden id='hidden' name="">
+        </section>
+
+
+    </div>
+
+    <script>
+        document.querySelector("textarea").focus()
+        const navButton = document.querySelector('.nav-button');
+
+        navButton.addEventListener('click', () => {
+            document.querySelector('nav').classList.toggle('display-nav');
+            navButton.classList.toggle('nav-button-toggler');
+        });
+
+    </script>
+
+</body>
+
+</html>

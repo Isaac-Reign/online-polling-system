@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Poll | Results</title>
+
+</head>
+<body>
+
+<style type="text/css">
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.type {
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 35px;
+  background-color: #032;
+  padding: 20px 0;
+  width: 100%;
+  color: #a1acfa;
+}
+
+.student, ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+ul {
+  flex-direction: row;
+  margin: 20px 0;
+}
+ul a {
+  margin: 0 8px;
+  text-decoration: none;
+  padding: 5px;
+  border-left: 2px solid #777;
+}
+
+.student {
+  position: relative;
+  box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.5);
+  max-width: 300px;
+  width: 90%;
+  margin: 30px auto;
+  background: violet;
+}
+
+.image-box {
+  margin: 30px auto;
+  width: 150px;
+  height: 140px;
+  position: relative;
+  background-color: #304;
+  padding: 5px;
+}
+
+.image-box img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 100%;
+  z-index: 10;
+}
+
+.name {
+  border-bottom: 2px solid #fcc;
+  margin: 5px 0;
+}
+.a-btn {
+  background-color: lightgreen;
+  font-weight: bold;
+  color: #032;
+  border: 0;
+  padding: 8px 40px;
+  font-size: 18px;
+  color: #302;
+  margin: 5px;
+  border-radius: 20px;
+}
+
+	</style>
+	<main>
+      {% if poll %}
+    
+        <h2 class="type">Results for {{q}}</h2>
+          <ul>
+            <a href="{{request.META.HTTP_REFERER}}">Go Back</a>
+          </ul>
+          <hr>
+          {% for r in poll %}
+          <div class="student">
+               <div class="image-box">
+                  <img src="{{r.person_photo.url}}" alt="image" class="image">
+              </div>
+              <div>
+                  <h3 class="name">Name: <span class="name">{{r.person_name}}</span></h3>
+                  <h4 class="name">Position: {{r.person_position}}</span></h4>
+                  <h4 class="name">Course: {{r.person_course}}</span></h4>
+
+              </div>
+
+              <div class="ap-buttons">
+                  <button class="a-btn"> votes: {{r.vote_count}}</button>
+              </div>
+          </div>
+          {% endfor %}
+
+      {% else %}
+          <h1 class="type">No result for {{q}}</h1>
+      {% endif %}
+	</main>
+</body>
+</html>

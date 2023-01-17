@@ -1,0 +1,27 @@
+{% include 'poll/main.html' %}
+
+{% block content %}
+{% load static %}
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'poll/css/forms.css' %}">
+</head>
+<body>
+
+	<main class="card">
+
+		<form method="POST">
+			<h2 class="title">Login if you already have accounts</h2>
+			{% csrf_token %}
+			<label for="username">Username:</label>
+			<input type="text" required placeholder="The name u used for the registration" id="username" name="username">
+
+			<label for="password">Password:</label>
+			<input type="password" id="password" required placeholder="As well as your password" name="password">
+
+			<p>Don't have account yet? <a href="{% url 'register_user' %}">Register</a></p>
+
+			<input type="submit">
+		</form>
+	</main>
+{% endblock %}

@@ -1,0 +1,320 @@
+{% include 'poll/main.html' %}
+{% block content %}
+{% load static %}
+	<style type="">
+		*{
+			font-family: sans-serif;
+		}
+		 ul, .link-c, .link-c2 {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+		}
+		.container {
+			position: relative;
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+		.admin, .messages {
+			position: absolute;
+			top: 125px;
+			background: hsl(200, 50%, 20%);
+			padding: 7px;
+			border-radius: 5px;
+			color: #fff;
+			cursor: pointer;
+			z-index: 1000;
+		}
+		.admin {
+			left: 0;
+		}
+		.messages {
+			right: 20px; 
+			text-decoration: none;
+			padding: 10px;
+		}
+		.messages::after {
+			content: "";
+			position: absolute;
+			bottom: -1px;
+			left: -2px;
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: violet;
+			padding: 5px;
+		}
+		.admin img {
+			width: 20px;
+			height: 20px;
+		}
+		nav {
+			position: absolute;
+		    top: 170px;
+			width: 195px;
+			height: 0;
+			opacity: 0;
+			overflow: hidden;
+			transition: .3s;
+			z-index: 1000;
+			background: #032;
+			padding: 20px 8px;
+			pointer-events: none;
+		}
+		.display-nav {
+			opacity: 1;
+			height: 290px;
+			pointer-events: all;
+		}
+		.card div {
+			margin: 15px 0;
+			color: #ccc;
+			font-size: 17px;
+		}
+		.card input[type='text'] {
+			height: 20px;
+			border-radius: 5px;
+			padding: 5px;
+			color: steelblue;
+			font-size: 17px;
+			width: 90%;
+			border: 2px solid purple;
+		}
+		.card button {
+			width: 80%;
+			padding: 10px 0;
+			border: none;
+			background: blueviolet;
+			color: #fff;
+			border-radius: 8px;
+			cursor: pointer;
+		}
+		.card li {
+			margin-top: 10px;
+			color: #fff;
+		}
+		.card li a {
+			color: #fff;
+			font-size: 17px;
+		}
+		.type {
+			text-align: center;
+			font-family: Georgia, 'Times New Roman', Times, serif;
+			font-size: 35px;
+			background-color: #032;
+			padding: 20px 8px;
+			margin-bottom: 50px;
+			text-align: center;
+			color: #fff;
+			opacity: .6;
+		}
+
+		.ul {
+			flex-direction: row;
+			margin: 0 20px 0 0;
+		}
+
+		ul a {
+			margin: 0 8px;
+			margin-bottom: 20px;
+			padding: 8px;
+			text-decoration: none;
+			color: #fff;
+		}
+		h4 {
+			margin: 18px 0;
+			display: flex;
+			justify-content: space-between;
+		}
+		h4 a {
+			text-decoration: none;
+			background: purple;
+			color: #fff;
+			border-radius: 5px;
+			padding: 10px;
+		}
+
+		.a {
+			background: #12afa3;
+		}
+		.link-c {
+			justify-content: flex-end;
+			flex-direction: row;
+			position: relative;
+		}
+		.link-c2 {
+			align-items: flex-start;
+			margin-top: -5px;
+		}
+		.link-c2 span {
+/*			color: #fff; opacity: .7;*/
+		    font-style: normal
+		}
+		.link {
+			border-radius: 2px;
+			color: #3f0882ba;
+			font-style: italic;
+			padding: 10px;
+			text-decoration: none;
+		}
+		.link2 {
+			background: blueviolet;
+			margin-top: 3.5px;
+			border-radius: 8px;
+			color: #fff;
+		}
+		.ul {
+			margin-left: -20px;
+			margin-top: 80px;
+		}
+		.ul a {
+			background: steelblue;
+			border-radius: 5px;
+		}
+		.img-box {
+			position: relative;
+			width: 80px;
+			height: 80px;
+			background: #032;
+			border-radius: 8px;
+			margin-top: -10px;
+			margin-right: 5px;
+		}
+		.img-box img {
+			border-radius: 8px;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			background-position: center;
+		}
+		.img-box::before {
+			content: "";
+			width: 5px;
+			height: 5px;
+			border-radius: 50%;
+			background: lightgreen;
+			padding: 5px;
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+		@media(max-width: 330px){
+			.admin, .messages {
+				top: 160px;
+			}
+			.messages {
+				right: -20px
+			}
+			nav {
+				top: 200px;
+			}
+			.ul {
+				margin: 80px 0 0 -20px;
+			}
+		}
+
+	</style>
+		<div class="container">
+		  <h1 class="type">Online Polling System</h1>
+	      <a href="{% url 'messages' %}" class="messages">Messages</a>
+		  {% if request.user.is_superuser %}
+	      <div class="admin"><img src="{% static 'poll/images/download.png' %}">Settings</div>
+		  <nav id="navbar">
+		  	<form class="card" method="POST">
+		  		{% csrf_token %}
+		  		{% if admin.start_vote == False %}
+		  		<div>
+		  		<input id='c1' type="checkbox" name="start_vote">
+		  		<label for="c1">Start vote</label>
+			  	</div>
+			  	{% else %}
+			  	<div>
+		  		<input id='c1' type="checkbox" checked name="start_vote">
+		  		<label for="c1">start vote</label>
+			  	</div>
+			  	{% endif %}
+			  	
+			  	{% if admin.registration_complete == False %}
+			  	<div>
+		  		<input id="c2" type="checkbox" name="registration_complete">
+		  		<label for='c2'>registration_complete</label>
+			  	</div>
+			  	{% else %}
+			  	<div>
+		  		<input id="c2" type="checkbox" checked name="registration_complete">
+		  		<label for='c2'>registration complete</label>
+			  	</div>
+			  	{% endif %}
+
+			  	{% if admin.show_results == False %}
+			  	<div>
+		  		<input id='c3' type="checkbox" name="show_results">
+		  		<label for="c3">show results</label>
+			  	</div>
+			  	{% else %}
+			  	<div>
+		  		<input id='c3' checked type="checkbox" name="show_results">
+		  		<label for="c3">Show results</label>
+			  	</div>
+			  	{% endif %}
+			  	<div><label for="display_info">Dispay info</label><input type="text" id="display_info" name="display_info" value="{{display_info}}"></div>
+		  		<button type="submit">Save</button>
+
+		  		<li><a href="/admin/" target="_blank">site administration</a></li>
+		  		<li><a href="{% url 'create_poll' %}" rel="noopener noreferrer">add contextant</a></li>
+
+		  	</form>
+		  </nav>
+		  {% endif %}
+		     <ul class="ul">
+	           <a href="{% url 'poll_results' %}" >Results</a>
+	           <a href="{% url 'voters' %}" >Voters</a>
+			   <a href="{% url 'about' %}">About</a>
+		    </ul>
+			<div class="link-c">
+				{% if request.user.is_authenticated %}
+				{% if request.user.is_superuser %}
+			        <div class="img-box"><img src="{% static 'poll/images/developer.png' %}"></div>
+				{% else %}
+			        <div class="img-box"><img src="{{request.user.completeregistration.profile_picture.url}}"></div>
+		        {% endif %}
+				<div class="link-c2">
+					<span class="link">Hello, {{request.user}}</span>
+			        <a class="link link2" href="/logout_user/" style="color: orange">Logout</a>
+				</div>	
+
+				{% else %}
+		        <div class="img-box"><img src="{% static 'poll/images/anonymous-user.jpg' %}" style="border-radius: 0"></div>
+				<div class="link-c2">
+					<span class="link">Hello user, click to</span>
+			        <a class="link link2" href="/login_user/">Login or Register</a>
+				</div>	
+			
+				{% endif %}
+			</div>
+			<hr>
+			<h2 style="color: steelblue;">Display info:</h2>
+			<li style="color: steelblue; line-height: 1.5">{{display_info}}. click the <a href="{% url 'about' %}">About</a> link for more.</li>
+
+			{% for p in position %}
+			<h4>
+				<a href="{% url 'vote' %}?q={{p.person_position}}" class="a">Vote for: {{p.person_position}}</a>
+				{% if request.user.is_superuser%}
+				<a href="{% url 'delete_poll' %}?q={{p.person_position}}">Delete All</a>
+				{% endif %}
+			</h4>
+			{% endfor %}
+
+		</div>
+		{% if request.user.is_superuser %}
+		<script type="text/javascript">
+			const settings = document.querySelector('.admin');
+
+			settings.addEventListener('click', () => {
+				document.getElementById('navbar').classList.toggle('display-nav');
+			})
+		</script>
+		{% endif %}
+{% endblock content %}

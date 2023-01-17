@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Required</title>
+</head>
+
+<body>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: sans-serif;
+		}
+		.container {
+			width: 80%;
+			max-width: 700px;
+			margin: 0 auto;
+		}
+		h2 {
+			color: steelblue;
+			line-height: 1.5;
+			margin: 20px 0;
+		}
+		a {
+			background-color: blueviolet;
+			padding: 8px;
+			border-radius: 5px;
+			color: #fff;
+			font-size: 18px;
+			margin-right: 15px;
+		}
+		.container div {
+			margin: 20px 20px 0 0;
+
+		}
+
+	</style>
+	{% if page == registration_complete %}
+	<div class="container">
+		<h2>ICT master have close the registration, you can only login only if you already have accounts</h2></h2>
+		<h2>If you have not register contact ICT master to register</h2>
+		<div>Already have accounts? <a href="{% url 'login_user' %}">Login</a></div>
+	</div>
+
+	{% else %}
+	<div class="container">
+		<h2>Please, to perform this action, you have to login if you have acount or register if you don't have account.<br> Click the following link to:</h2>
+		<div>
+			<a href="{% url 'login_user' %}">Login</a>
+			<a href="{% url 'register_user' %}">Register</a>
+		</div>
+	</div>
+	{% endif %}
+</body>
+</html>

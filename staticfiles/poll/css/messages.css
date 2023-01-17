@@ -1,0 +1,240 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background: linear-gradient(120deg, hsl(200deg, 70%, 40%), #fd67df);
+  width: 100%;
+  height: 100%;
+  padding-bottom: 60px;
+  padding-top: 50px;
+}
+
+.nav-button {
+  z-index: 2000;
+  position: fixed;
+  top: 1em;
+  right: 1rem;
+  cursor: pointer;
+  padding: .7em;
+  color: #fff;
+  background: steelblue;
+  border-radius: 1em;
+}
+.nav-button img {
+  height: 30px;
+  transform: rotate(180deg);
+  transition: 0.5s ease-in-out;
+  margin-bottom: -10px;
+}
+.nav-button:hover {
+  opacity: 0.4;
+}
+
+.nav-button-toggler img{
+  transform: rotate(270deg);
+}
+
+.nav-button-toggler {
+  background: none;
+}
+
+nav {
+  background: linear-gradient(120deg, hsl(200deg, 70%, 40%), #fd67df);
+  width: 100%;
+  position: fixed;
+  top: 1.5em;
+  right: 0;
+  z-index: 1400;
+  max-width: 150px;
+  height: 0;
+  overflow: hidden;
+  transition: 0.3s;
+}
+nav .info-container {
+  padding-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+nav .info-container .info-count {
+  border: 8px solid skyblue;
+  border-radius: 20px;
+  width: 120px;
+  padding: 5px;
+  color: #fff;
+  font-weight: bold;
+  margin: 5px 0;
+  text-align: center;
+  cursor: pointer;
+}
+.info-container .info-count:hover {
+  border: 7.5px solid blueviolet;
+}
+
+.display-nav {
+  height: 280px;
+}
+
+.display {
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 7px;
+  margin: 10px 1px 0 auto;
+  max-width: 400px;
+}
+.display img {
+  float: left;
+  width: 40px;
+  height: 40px;
+  margin-top: -7px;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+.display p {
+  color: cornflowerblue;
+  margin: 20px 0 8px 0;
+}
+.display b {
+  color: rgb(70, 114, 48);
+  font-size: 14px;
+}
+.time-left {
+  float: right;
+  color: #777;
+  font-size: 13px;
+}
+
+.darker {
+  background-color: rgba(255, 255, 255, 0.825);
+}
+
+.user-2 {
+  margin: 10px 0 0 1px;
+  background-color: rgb(162, 227, 190);
+}
+.display::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+#display {
+  margin: 20px 0;
+}
+.intro {
+  display: none;
+  background: linear-gradient(120deg, hsl(200deg, 70%, 40%), #fd67df);
+  width: 100%;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  max-width: 280px;
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.intro h3,
+.intro h4 {
+  color: rgb(170, 214, 130);
+  text-align: center;
+}
+.intro p {
+  color: rgba(51, 0, 68, 0.952);
+  margin-bottom: 8px;
+  padding-left: 20px;
+}
+.intro span {
+  font-style: italic;
+  display: block;
+  color: rgba(0, 0, 0, 0.29);
+  margin: 8px 0;
+}
+
+.intro.display {
+  display: block;
+}
+
+.image-box {
+  display: flex;
+  justify-content: center;
+}
+.image-box img {
+  margin-bottom: 8px;
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 5px;
+  background-position: center;
+  background-size: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.container section {
+  padding-bottom: 40px;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.chat-container {
+  max-width: 600px;
+  position: relative;
+}
+.chat-container form {
+  position: fixed;
+  max-width: 600px;
+  z-index: 1000;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+}
+.chat-container .card {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+}
+.chat-container textarea {
+  flex: 1;
+  height: 65px;
+  border: 3px solid #fd67df;
+  background-color: rgba(255, 255, 255, 0.812);
+  outline: none;
+  padding: 10px 60px;
+  font-size: 17px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: rgba(12, 71, 15, 0.794);
+}
+.chat-container button, .chat-container .files {
+  color: #fff;
+  position: absolute;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  bottom: 3px;
+  border: none;
+  background-color: rgb(68, 215, 68);
+}
+.chat-container .files {
+  left: 0;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media(max-width: 420px){
+  .display {
+    margin: 10px 21px 0 2px;
+  }
+  .user-2 {
+    margin: 10px 2px 0 21px;
+  }
+
+}

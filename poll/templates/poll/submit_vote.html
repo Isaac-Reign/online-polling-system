@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<title>Poll | Vote</title>
+    <script defer src="{% static 'base/js/vote.js' %}"></script>
+
+</head>
+<body>
+
+<style type="text/css">
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+main {
+  padding-top: 150px;
+}
+.body {
+  background: rgba(0, 0, 0, 0.4);
+  overflow-y: hidden;
+}
+
+.type {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 35px;
+  background-color: #123fac;
+  padding: 20px 0;
+  text-align: center;
+  width: 100%;
+  color: #a1acfa;
+}
+
+.student, .ap-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.student {
+  position: relative;
+  box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.5);
+  max-width: 300px;
+  width: 90%;
+  margin: 55px auto
+}
+
+
+.image-box {
+  margin: 30px auto;
+  width: 150px;
+  height: 150px;
+  position: relative;
+  background-color: #304;
+  padding: 5px;
+}
+
+.image-box img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 100%;
+  z-index: 10;
+}
+
+.name {
+  border-bottom: 2px solid #fcc;
+  margin: 5px 0;
+}
+
+.a-btn {
+  background-color: green;
+  border: none;
+  padding: 8px 20px;
+  margin: 5px;
+  font-size: 18px;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 3px 3px lightgreen;
+}
+
+</style>
+	<main>
+      <h2 class="type">You are about to vote for {{poll.person_name}}, click 'submit vote', to vote</h2>
+      <hr>
+
+      <form method="POST">
+        {% csrf_token %}
+          <div class="student">
+               <div class="image-box">
+                  <img src="{{poll.person_photo.url}}" alt="image" class="image">
+              </div>
+              <div>
+                  <h3 class="name">Name: <span class="name">{{poll.person_name}}</span></h3>
+                  <h4 class="name">Position: {{poll.person_position}}</span></h4>
+                  <h4 class="name">Course: {{poll.person_course}}</span></h4>
+
+              </div>
+
+              <div class="ap-buttons">
+                  <button type="submit" class="a-btn"><img src="{% static 'poll/images/success-check.png' %}">Submit vote <input hidden type="radio" name="poll" value="{{poll.id}}" required checked></button>
+              </div>
+          </div>
+
+      </form>
+	</main>
+</body>
+</html>
