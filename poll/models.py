@@ -30,7 +30,7 @@ class CompleteRegistration(models.Model):
     student_range = models.ForeignKey(StudentRange, on_delete=models.CASCADE)
     your_course = models.ForeignKey(StudentCourse, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=10, default=0)
-    profile_picture = models.ImageField(upload_to='pics')
+    profile_picture = models.ImageField()
     relation = models.OneToOneField(User, on_delete=models.CASCADE)
     can_vote = models.BooleanField(default=True)
     def delete(self, *args, **kwargs):
