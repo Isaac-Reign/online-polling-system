@@ -27,7 +27,16 @@ def vote_home(request):
 			return redirect('complete_registration')
 
 	position = models_forms.Position.objects.all()
-	admin = models_forms.AdminSitting1.objects.get(pk=1)
+	try:
+		admin = models_forms.AdminSitting1.objects.get(pk=1)
+	except:
+		models_forms.AdminSitting1.objects.create(
+			start_vote=False,
+			registration_complete=False,
+			show_results=False,
+			be_inform="Welcom"
+			)
+		return redirect('poll_board')
 	display_info = admin.be_inform
 
 	if request.method == "POST":
