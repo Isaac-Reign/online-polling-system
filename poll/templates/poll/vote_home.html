@@ -5,7 +5,7 @@
 		*{
 			font-family: sans-serif;
 		}
-		 ul, .link-c, .link-c2 {
+		 ul, .link-c, .link-c2, .type {
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -16,10 +16,11 @@
 			max-width: 800px;
 			margin: 0 auto;
 			padding: 0 20px;
+			box-shadow: 0 0 40px 0 rgba(133, 133, 133, 1);
 		}
 		.admin, .messages {
 			position: absolute;
-			top: 125px;
+			top: 205px;
 			background: hsl(200, 50%, 20%);
 			padding: 7px;
 			border-radius: 5px;
@@ -100,7 +101,7 @@
 			font-size: 17px;
 		}
 		.type {
-			text-align: center;
+			
 			font-family: Georgia, 'Times New Roman', Times, serif;
 			font-size: 35px;
 			background-color: #032;
@@ -202,7 +203,7 @@
 		}
 		@media(max-width: 330px){
 			.admin, .messages {
-				top: 160px;
+				top: 260px;
 			}
 			.messages {
 				right: -20px
@@ -215,9 +216,35 @@
 			}
 		}
 
+		.img-logo {
+				width: 100%;
+				height: 700px;
+				margin-top: 200px;
+				position: relative;
+			}
+			.img-logo img {
+				width: 100%;
+				height: 100%;
+				background-position: center;
+				background-size: cover;
+				object-fit:contain;
+				position: absolute;
+				transition: .5s;
+			}
+
+			footer {
+				width: 100%;
+				background: #032;
+				padding: 10px 0;
+				text-align: center;
+				margin-top: 100px;
+			}
+			footer a {
+				color: #fff;
+			}
 	</style>
 		<div class="container">
-		  <h1 class="type">YASHS Polling System</h1>
+		  <h1 class="type"><img src="{% static 'poll/images/yashs.png' %}">YASHS Polling System</h1>
 	      <a href="{% url 'messages' %}" class="messages">Messages</a>
 		  {% if request.user.is_superuser %}
 	      <div class="admin"><img src="{% static 'poll/images/download.png' %}">Settings</div>
@@ -295,7 +322,7 @@
 				{% endif %}
 			</div>
 			<hr>
-			<h2 style="color: steelblue;">Display info:</h2>
+			<h2 style="color: steelblue;">Notice Board:</h2>
 			<li style="color: steelblue; line-height: 1.5">{{display_info}}. click the <a href="{% url 'about' %}">About</a> link for more.</li>
 
 			{% for p in position %}
@@ -307,6 +334,10 @@
 			</h4>
 			{% endfor %}
 
+
+			<div class="img-logo">
+				<img id="image1" src="{% static 'poll/images/yas.png' %}" alt="">
+			</div>
 		</div>
 		{% if request.user.is_superuser %}
 		<script type="text/javascript">
@@ -317,4 +348,8 @@
 			})
 		</script>
 		{% endif %}
+
+		<footer>
+			<h2><a href="https://isaac-portfolio.onrender.com">About developer</a></h2>
+		</footer>
 {% endblock content %}
