@@ -220,7 +220,7 @@
       <div class="link-c">
         {% if request.user.is_authenticated %}
         {% if request.user.is_superuser %}
-              <div class="img-box"><img src="{% static 'poll/images/developer.png' %}"></div>
+              <div class="img-box"><img src="{% static 'poll/images/anonymous-user.jpg' %}"></div>
         {% else %}
               <div class="img-box"><img src="{{request.user.completeregistration.profile_picture.url}}"></div>
             {% endif %}

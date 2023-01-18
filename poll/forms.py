@@ -1,11 +1,11 @@
 from django import forms
 from . models import Poll, CompleteRegistration
 from django.contrib.auth.models import  User
+
 class RegistrationForm(forms.Form):
-	username = forms.CharField(max_length=200, label='Full name')
-	# email = forms.EmailField()
+	username = forms.CharField(max_length=200)
 	password = forms.CharField(max_length=30, widget=forms.PasswordInput())
-	confirm = forms.CharField(max_length=30, widget=forms.PasswordInput())
+	confirm_password = forms.CharField(max_length=30, widget=forms.PasswordInput())
 
 	def clean_username(self):
 		try:

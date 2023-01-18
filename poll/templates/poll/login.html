@@ -14,14 +14,15 @@
 			<h2 class="title">Login if you already have accounts</h2>
 			{% csrf_token %}
 			<label for="username">Username:</label>
-			<input type="text" required placeholder="The name u used for the registration" id="username" name="username">
+			<input type="text" required placeholder="The name u used for the registration" id="username" name="login_username">
 
 			<label for="password">Password:</label>
-			<input type="password" id="password" required placeholder="As well as your password" name="password">
-
-			<p>Don't have account yet? <a href="{% url 'register_user' %}">Register</a></p>
+			<input type="password" id="password" required placeholder="As well as your password" name="login_password">
 
 			<input type="submit">
+			<p>Don't have account yet? <a href="{% url 'register_user' %}">Register</a></p>
+			<p>Forgot password? <a href="tel:{{tel}}">Call</a> or <a href="{% url 'messages' %}">Text</a> ICT master</p>
+
 		</form>
 	</main>
 {% endblock %}

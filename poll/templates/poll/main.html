@@ -12,7 +12,7 @@
 </head>
 
 <body>
-{% if messages %}
+{% if messages or forms.errors or forms.non_field_errors%}
 
 <style type="text/css">
 	.mas {
@@ -65,6 +65,10 @@
 <div class="mas">
 		{% for ms in messages %}
 		<p>{{ms}}</p>
+		{% endfor %}
+
+		{% for ms in forms %}
+		<p>{{ms.errors}}</p>
 		{% endfor %}
 	<div class="mas-container">
 		<div class="close">OK</div>

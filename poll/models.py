@@ -24,6 +24,7 @@ class Poll(models.Model):
     person_position = models.ForeignKey(Position, on_delete=models.CASCADE)
     vote_count = models.IntegerField(default=0)
     person_photo = models.ImageField(blank=True, null=True)
+
     have_vote = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
 class CompleteRegistration(models.Model):
@@ -49,4 +50,6 @@ class AdminSitting1(models.Model):
     registration_complete = models.BooleanField(default=False)
     show_results = models.BooleanField(default=False)
     be_inform = models.CharField(max_length=200)
+    contact = models.IntegerField(default=0)
+
     

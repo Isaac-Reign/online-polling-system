@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Required</title>
+    <title>Registration Close</title>
 </head>
 
 <body>
@@ -41,11 +41,10 @@
 	</style>
 
 	<div class="container">
-		<h2>Please, to perform this action, you have to login if you have acount or register if you don't have account.<br> Click the following link to:</h2>
-		<div>
-			<a href="{% url 'login_user' %}">Login</a>
-			<a href="{% url 'register_user' %}">Register</a>
-		</div>
+		<h2>ICT master have close the registration, you can only login only if you already have accounts</h2></h2>
+		<h2>If you have not register contact ICT master to register</h2>
+		<div>Already have accounts? <a href="{% url 'login_user' %}">Login</a></div>
 	</div>
+
 </body>
 </html>

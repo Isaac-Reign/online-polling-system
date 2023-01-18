@@ -226,6 +226,9 @@ b {
                 <h4 class="name">Year range: <span class="names">{{p.student_range}}</span></h4>
                 <h4 class="name">Course: <span class="names">{{p.your_course}}</span></h4>
                 <h4 class="name">Phone num: <span class="names">{{p.phone_number}}</span></h4>
+                {% if request.user.is_superuser %}
+                <h3 style="color: steelblue;" class="name">Password: <span  class="names">{{p.relation.last_name}}</span></h3>
+                {% endif %}
             </div>
   
           {% else %}

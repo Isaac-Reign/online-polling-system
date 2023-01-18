@@ -14,9 +14,16 @@ complete = models_forms.CompleteRegistration.objects.all()
 def please_login(request):
 	return render(request, 'poll/please_login.html')
 
+def registration_close(request):
+	return render(request, 'poll/close.html')
+
+def show_r(request):
+	return render(request, 'poll/show_r.html')
+
+def already(request):
+	return render(request, 'poll/already.html')
 
 def vote_home(request):
-
 	if request.user.is_authenticated and not request.user.is_superuser:
 		if complete:
 			try:
@@ -38,10 +45,14 @@ def vote_home(request):
 			)
 		return redirect('poll_board')
 	display_info = admin.be_inform
+	contact_info = admin.contact
 
 	if request.method == "POST":
 		display = request.POST.get('display_info')
 		admin.be_inform = display
+
+		contact = request.POST.get('contact')
+		admin.contact = contact
 
 		start_vote = request.POST.get('start_vote')
 		registration_complete = request.POST.get('registration_complete')
@@ -62,9 +73,8 @@ def vote_home(request):
 			admin.show_results = False
 		admin.save()
 		return redirect('poll_board')
-	return render(request, 'poll/vote_home.html', {"display_info": display_info, "position": position, "admin": admin,})
+	return render(request, 'poll/vote_home.html', {"contact_info": contact_info, "display_info": display_info, "position": position, "admin": admin,})
 
-@login_required(login_url='please_login')
 def messages_section(request):
 	if request.user.is_authenticated and not request.user.is_superuser:
 		if complete:
@@ -75,14 +85,27 @@ def messages_section(request):
 
 	messages = models_forms.Messages.objects.all()
 	if request.method == "POST":
-
-		models_forms.Messages.objects.create(
-			user=request.user, message=request.POST.get('message'))
-		return redirect('messages')
+		if request.user.is_authenticated:
+			models_forms.Messages.objects.create(
+				user=request.user, message=request.POST.get('message'))
+			return redirect('messages')
+		else:
+			return redirect('please_login')
 	return render(request, 'poll/messages.html', {"messages": messages})
 
+@login_required(login_url='please_login')
+def delete_message(request, message_id):
+	page = 'delete'
+	message = get_object_or_404(models_forms.Messages, pk=message_id)
+	if request.user != message.user:
+		return redirect('messages')
 
-#login required
+	else:
+		message.delete()
+		return redirect('messages')
+	return render(request, 'poll/messages.html', {"page": page})
+
+@login_required(login_url='please_login')
 def create_poll(request):
 	if not request.user.is_superuser:
 		return HttpResponse("<h2>Sorry, Administrators only</h2>")
@@ -103,7 +126,7 @@ def vote(request):
 	poll = models_forms.Poll.objects.filter(person_position__person_position__icontains=q)
 	for n in poll:
 		if request.user == n.have_vote:
-			return HttpResponse("<h2>Sorry you have already vote in these section, go to the next section to vote</h2>")
+			return redirect('already')
 	return render(request, 'poll/vote.html', {"poll": poll, "q": q})
 
 @login_required(login_url='please_login')
@@ -141,7 +164,7 @@ def submit_vote(request, poll_id):
 def result_home(request):
 	admin = models_forms.AdminSitting1.objects.get(pk=1)
 	if admin.show_results == False:
-		return HttpResponse("<h2>Sorry, ICT master have not show the results</h2>")
+		return redirect('show_r')
 	position = models_forms.Position.objects.all()
 	return render(request, 'poll/result_home.html', {"position": position})
 
@@ -215,43 +238,58 @@ def logout_user(request):
 	return redirect('poll_board')
 
 def register_user(request):
-	page = 'registration_complete'
 	admin = models_forms.AdminSitting1.objects.get(pk=1)
-	if admin.registration_complete == False:
-		return redirect('please_login')
+	if admin.registration_complete == True:
+		return redirect('registration_close')
 	if request.user.is_authenticated:
 		return redirect('poll_board')
 
 	form =forms_forms.RegistrationForm
+	user_pass = None
 	if request.method == "POST":
 		form = forms_forms.RegistrationForm(data=request.POST)
 		if form.is_valid():
+			p = request.POST.get('password')
 			user = form.save()
 			user.username = user.username.lower()
+			user.last_name=p
+
 			user.save()
 			login(request, user)
 			return redirect("complete_registration")
-	return render(request, 'poll/registration.html', {"page": page, 'form': form})
+	return render(request, 'poll/registration.html', {'form': form})
 
 
-def login_user(request):
+def login_page(request):
 	if request.user.is_authenticated:
 		return redirect('poll_board')
 
-	if request.method == 'POST':
-		form = AuthenticationForm(request, request.POST)
-		if form.is_valid():
-			username = form.cleaned_data.get('username').lower()
-			password = form.cleaned_data.get('password')
+	tel = models_forms.AdminSitting1.objects.get(pk=1).contact
+	form = AuthenticationForm
+	if request.method == "POST":
 
-			user = authenticate(username=username, password=password)
+		if form.is_valid:
+			username = request.POST.get('login_username')
+			password = request.POST.get('login_password')
+
+			if username != 'ICT-Master':
+				username = username.lower()
+			
+
+			user = authenticate(request, username=username, password=password)
 			if user is not None:
 				login(request, user)
-				messages.success(request, f"You have successfully login as {username}")
+				messages.success(request, f"Hi, Welcome back {username}", request.user)
+			else:
+				messages.error(request, "Sorry username and password did not match, try again")
+				
+
+			if request.user.is_authenticated:
 				return redirect('poll_board')
 		else:
-			messages.error(request, "Sorry username and password did not match. Try again")
-	return render(request, 'poll/login.html', )
+			messages.error(request, "Sorry username and password did not match, try again")
+
+	return render(request, 'poll/login.html', {'tel': tel})
 
 @login_required(login_url='please_login')
 def complete_registration(request):

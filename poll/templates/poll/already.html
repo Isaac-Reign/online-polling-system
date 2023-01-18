@@ -41,10 +41,10 @@
 	</style>
 
 	<div class="container">
-		<h2>Please, to perform this action, you have to login if you have acount or register if you don't have account.<br> Click the following link to:</h2>
+		<h2>Sorry you have already vote in this section, go to the next section to vote</h2>
 		<div>
-			<a href="{% url 'login_user' %}">Login</a>
-			<a href="{% url 'register_user' %}">Register</a>
+			<a href="{% url 'poll_board' %}">Ok</a>
+			<a href="{% url 'messages' %}">Report</a>
 		</div>
 	</div>
 </body>

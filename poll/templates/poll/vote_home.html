@@ -143,7 +143,7 @@
 		}
 		.display-nav {
 			opacity: 1;
-			height: 290px;
+			height: 400px;
 			pointer-events: all;
 		}
 		.card div {
@@ -322,6 +322,7 @@
 		<div class="container">
 		  <h1 class="type"><img src="{% static 'poll/images/yashs.png' %}">YASHS Polling System</h1>
 	      <a href="{% url 'messages' %}" class="messages">Messages</a>
+		  
 		  {% if request.user.is_superuser %}
 	      <div class="admin"><img src="{% static 'poll/images/download.png' %}">Settings</div>
 		  <nav id="navbar">
@@ -362,13 +363,46 @@
 		  		<label for="c3">Show results</label>
 			  	</div>
 			  	{% endif %}
-			  	<div><label for="display_info">Dispay info</label><input type="text" id="display_info" name="display_info" value="{{display_info}}"></div>
+			  	<div><label for="display_info">Notice Board</label><input type="text" id="display_info" name="display_info" value="{{display_info}}"></div>
+			  	<div><label for="contact">Contact</label><input type="text" id="contact" name="contact" value="{{contact_info}}"></div>
+
 		  		<button type="submit">Save</button>
 
 		  		<li><a href="/admin/" target="_blank">site administration</a></li>
 		  		<li><a href="{% url 'create_poll' %}" rel="noopener noreferrer">add contextant</a></li>
 
 		  	</form>
+		  </nav>
+		  {% else %}
+		  <div class="admin"><img src="{% static 'poll/images/download.png' %}">Settings</div>
+		  <nav id="navbar">
+		  	<h3 style="color: yellow;">Teachers only</h3>
+		  	<div class="card">
+		  		
+			  	<div>
+		  		<input id='c1' type="checkbox" checked name="start_vote">
+		  		<label for="c1">start vote</label>
+			  	</div>
+			  	
+			  	<div>
+		  		<input id="c2" type="checkbox" checked name="registration_complete">
+		  		<label for='c2'>registration complete</label>
+			  	</div>
+			  	
+			  	<div>
+		  		<input id='c3' type="checkbox" name="show_results">
+		  		<label for="c3">show results</label>
+			  	</div>
+			  	
+			  	<div><label for="display_info">Notice Board</label><input type="text" id="display_info" name="display_info" value="Teachers only!"></div>
+			  	<div><label for="contact">Contact</label><input type="text" id="contact" name="contact" value="Teachers only!"></div>
+
+		  		<button type="submit">Save</button>
+
+		  		<li><a href="#">site administration</a></li>
+		  		<li><a href="#">add contextant</a></li>
+
+		  	</div>
 		  </nav>
 		  {% endif %}
 		     <ul class="ul">
@@ -379,7 +413,7 @@
 			<div class="link-c">
 				{% if request.user.is_authenticated %}
 				{% if request.user.is_superuser %}
-			        <div class="img-box"><img src="{% static 'poll/images/developer.png' %}"></div>
+			        <div class="img-box"><img src="{% static 'poll/images/anonymous-user.jpg' %}"></div>
 				{% else %}
 			        <div class="img-box"><img src="{{request.user.completeregistration.profile_picture.url}}"></div>
 		        {% endif %}
@@ -415,7 +449,6 @@
 				<img id="image1" src="{% static 'poll/images/yas.png' %}" alt="">
 			</div>
 		</div>
-		{% if request.user.is_superuser %}
 		<script type="text/javascript">
 			const settings = document.querySelector('.admin');
 
@@ -423,7 +456,6 @@
 				document.getElementById('navbar').classList.toggle('display-nav');
 			})
 		</script>
-		{% endif %}
 
 		<footer>
 			<h2><a href="https://isaac-portfolio.onrender.com">About developer</a></h2>
