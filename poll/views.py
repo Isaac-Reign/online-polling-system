@@ -41,7 +41,8 @@ def vote_home(request):
 			start_vote=False,
 			registration_complete=False,
 			show_results=False,
-			be_inform="Welcom"
+			be_inform="Welcom",
+			contact=233
 			)
 		return redirect('poll_board')
 	display_info = admin.be_inform
