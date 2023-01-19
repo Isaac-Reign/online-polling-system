@@ -78,6 +78,8 @@ def vote_home(request):
 	return render(request, 'poll/vote_home.html', {"contact_info": contact_info, "display_info": display_info, "position": position, "admin": admin,})
 
 def messages_section(request):
+	complete = models_forms.CompleteRegistration.objects.all()
+
 	if request.user.is_authenticated and not request.user.is_superuser:
 		if complete:
 			if request.user != request.user.completeregistration.relation:
@@ -134,6 +136,8 @@ def vote(request):
 
 @login_required(login_url='please_login')
 def submit_vote(request, poll_id):
+	complete = models_forms.CompleteRegistration.objects.all()
+
 	admin = models_forms.AdminSitting1.objects.get(pk=1)
 	if admin.start_vote == False:
 		messages.error(request, "ICT master have not start the vote yet ")
@@ -190,6 +194,8 @@ def about(request):
 	return render(request, 'poll/about.html')
 
 def voters(request):
+	complete = models_forms.CompleteRegistration.objects.all()
+	
 	all_users = User.objects.all()[1:]
 	if request.method == "POST":
 		for user in all_users:
