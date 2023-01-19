@@ -167,7 +167,7 @@ def submit_vote(request, poll_id):
 		poll.have_vote = request.user
 		poll.vote_count += 1
 		poll.save()
-		messages.success(request, "You vote was submit successfully, you can go to the next section to vote.")
+		messages.success(request, "Your vote was submit successfully, you can go to the next section to vote.")
 		return redirect('poll_board')
 	return render(request, 'poll/submit_vote.html', {"poll": poll})
 
