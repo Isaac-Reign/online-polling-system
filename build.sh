@@ -5,4 +5,4 @@ pip install -r requirements.txt
 
 python manage.py migrate
 
-python createsuperuser --no-input
+python manage.py createsuperuser --no-input
