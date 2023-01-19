@@ -21,6 +21,7 @@
 main {
   max-width: 800px;
   margin: 0 auto;
+  padding: 0 20px;
   overflow-x: hidden;
 }
 .body {
@@ -184,7 +185,7 @@ b {
         <ul>
           <a href="{% url 'voters' %}">All Students</a>
           {% for s in student_range %}
-            <a href="{% url 'voters' %}?q={{s}}">{{s}}</a>
+            <a href="{% url 'voters' %}?q={{s}}">{{s}}s</a>
           {% endfor %}
         </ul>
        <form method="GET" class='form'>
