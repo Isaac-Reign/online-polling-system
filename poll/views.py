@@ -125,7 +125,6 @@ def create_poll(request):
 	context = {"form": form, "position": position, 'page': page}
 	return render(request, 'poll/create_poll.html', context)
 
-@login_required(login_url='please_login')
 def vote(request):
 	q = request.GET.get('q')
 	poll = models_forms.Poll.objects.filter(person_position__person_position__icontains=q)
