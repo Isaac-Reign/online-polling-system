@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.db.models import Q
@@ -9,7 +9,6 @@ from django.contrib import messages
 from . import models as models_forms, forms as forms_forms
 
 
-complete = models_forms.CompleteRegistration.objects.all()
 
 def please_login(request):
 	return render(request, 'poll/please_login.html')
@@ -24,6 +23,8 @@ def already(request):
 	return render(request, 'poll/already.html')
 
 def vote_home(request):
+	complete = models_forms.CompleteRegistration.objects.all()
+	
 	if request.user.is_authenticated and not request.user.is_superuser:
 		if complete:
 			try:
@@ -109,7 +110,8 @@ def delete_message(request, message_id):
 @login_required(login_url='please_login')
 def create_poll(request):
 	if not request.user.is_superuser:
-		return HttpResponse("<h2>Sorry, Administrators only</h2>")
+		messages.error(request, 'Sorry, Administrators only')
+		return redirect('poll_board')
 	page = 'create_poll'
 	position = models_forms.Position.objects.all()
 	form = forms_forms.Polls
@@ -134,10 +136,12 @@ def vote(request):
 def submit_vote(request, poll_id):
 	admin = models_forms.AdminSitting1.objects.get(pk=1)
 	if admin.start_vote == False:
-		return HttpResponse('<h2>ICT master have not start the vote yet </h2>')
+		messages.error(request, "ICT master have not start the vote yet ")
+		return redirect('poll_board')
 	if request.user.is_authenticated and not request.user.is_superuser:
 		if request.user.completeregistration.can_vote == False:
-			return HttpResponse("<h2>Sorry, ICT master have not allow you to vote</h2>")
+			messages.error(request, "Sorry, ICT master have not allow you to vote")
+			return redirect('poll_board')
 		if complete:
 			if request.user != request.user.completeregistration.relation:
 				return redirect('complete_registration')
@@ -149,11 +153,14 @@ def submit_vote(request, poll_id):
 	polls = models_forms.Poll.objects.filter(person_position__person_position__icontains=q)
 	for n in polls:
 		if request.user == n.have_vote:
-			return HttpResponse("<h1>Sorry you have already vote in these section, go to the next section to vote</h1>")
+			messages.error(request, "Sorry you have already vote in these section, go to the next section to vote")
+			return redirect('poll_board')
 
 	if request.method == "POST":
 		if request.user.is_superuser:
-			return HttpResponse("<h2>Admin I don't think you can vote.</h2>")
+			messages.error(request, "Admin I don't think you can vote.")
+			return redirect('poll_board')
+
 		poll.have_vote = request.user
 		poll.vote_count += 1
 		poll.save()
@@ -172,7 +179,8 @@ def result_home(request):
 def results(request):
 	admin = models_forms.AdminSitting1.objects.get(pk=1)
 	if admin.show_results == False:
-		return HttpResponse("<h2>Sorry, ICT master have not show the results</h2>")
+		messages.error(request, "Sorry, ICT master have not show the results")
+		return redirect('poll_board')
 		
 	q = request.GET.get('q')
 	poll = models_forms.Poll.objects.filter(person_position__person_position__icontains=q)
@@ -211,7 +219,8 @@ def voters(request):
 
 def delete_poll(request):
 	if not request.user.is_superuser:
-		return HttpResponse("<h2>Sorry, you are not allow here! Admin only.</h2>")
+		messages.error(request, "Sorry, you are not allow here! Admin only.")
+		return redirect('poll_board')
 
 	q = request.GET.get('q') if request.GET.get('q') != '' else ""
 	poll = models_forms.Poll.objects.filter(person_position__person_position__icontains=q)

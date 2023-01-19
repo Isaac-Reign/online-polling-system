@@ -212,10 +212,12 @@
 			color: #fff;
 			border-radius: 5px;
 			padding: 10px;
+			text-align: center;
 		}
 
 		.a {
 			background: #12afa3;
+			padding: 20px 10px;
 		}
 		.link-c {
 			justify-content: flex-end;
@@ -291,11 +293,14 @@
 			
 			
 		}
+		.flex1 {
+			display: flex;
+		}
 
 		.img-logo {
 				width: 100%;
 				height: 700px;
-				margin-top: 200px;
+				margin-top: 100px;
 				position: relative;
 			}
 			.img-logo img {
@@ -431,13 +436,24 @@
 			
 				{% endif %}
 			</div>
-			<hr>
 			<h2 style="color: steelblue;">Notice Board:</h2>
 			<li style="color: steelblue; line-height: 1.5">{{display_info}}. click the <a href="{% url 'about' %}">About</a> link for more.</li>
+			<hr>
+			<br>
+
+			<h2 style="color: gray;">Vote For:</h2>
 
 			{% for p in position %}
-			<h4>
-				<a href="{% url 'vote' %}?q={{p.person_position}}" class="a">Vote for: {{p.person_position}}</a>
+			<h4 class="flex1">
+				<style>
+					.flex1 .a {
+						width: 100%;
+						flex: 1;
+						margin: 0 8px;
+					}
+				</style>
+				<a href="{% url 'vote' %}?q={{p.person_position}}" class="a">{{p.person_position}}</a>
+				
 				{% if request.user.is_superuser%}
 				<a href="{% url 'delete_poll' %}?q={{p.person_position}}">Delete All</a>
 				{% endif %}
