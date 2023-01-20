@@ -199,7 +199,7 @@ def voters(request):
 	if request.method == "POST":
 		for user in all_users:
 			user.delete()
-			return redirect('voters')
+		return redirect('voters')
 	if request.user.is_authenticated and not request.user.is_superuser:
 		if complete:
 			if request.user != request.user.completeregistration.relation:
