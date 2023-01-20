@@ -6,8 +6,8 @@
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="YASHS-Voting, Online-Voting, YASHS Voting">
-    <meta name="description" content="Online-Voting, YASHS-Voting, Students-Voting, Students-Voting-center, Students-Voting-system">
+    <meta name="keywords" content="students voting center">
+    <meta name="description" content="voting center">
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'poll/images/yashs.png' %}">
 	<title>Vote | Home</title>
 </head>
@@ -327,7 +327,7 @@
 			}
 	</style>
 		<div class="container">
-		  <h1 class="type"><img src="{% static 'poll/images/yashs.png' %}">YASHS Polling System</h1>
+		  <h1 class="type"><img src="{% static 'poll/images/yashs.png' %}">Students Voting Center</h1>
 	      <a href="{% url 'messages' %}" class="messages">Messages</a>
 		  
 		  {% if request.user.is_superuser %}
@@ -382,27 +382,27 @@
 		  </nav>
 		  {% else %}
 		  <div class="admin"><img src="{% static 'poll/images/download.png' %}">Settings</div>
-		  <nav id="navbar">
-		  	<h3 style="color: yellow;">Teachers only</h3>
+		  <nav id="navbar" style="pointer-events: unset;">
+		  	<h3 style="color: yellow;">Administrators only</h3>
 		  	<div class="card">
 		  		
 			  	<div>
-		  		<input id='c1' type="checkbox" checked name="start_vote">
+		  		<input id='c1' readonly type="checkbox" checked name="start_vote">
 		  		<label for="c1">start vote</label>
 			  	</div>
 			  	
 			  	<div>
-		  		<input id="c2" type="checkbox" checked name="registration_complete">
+		  		<input id="c2" readonly type="checkbox" checked name="registration_complete">
 		  		<label for='c2'>registration complete</label>
 			  	</div>
 			  	
 			  	<div>
-		  		<input id='c3' type="checkbox" name="show_results">
+		  		<input id='c3' readonly type="checkbox" name="show_results">
 		  		<label for="c3">show results</label>
 			  	</div>
 			  	
-			  	<div><label for="display_info">Notice Board</label><input type="text" id="display_info" name="display_info" value="Teachers only!"></div>
-			  	<div><label for="contact">Contact</label><input type="text" id="contact" name="contact" value="Teachers only!"></div>
+			  	<div><label  for="display_info">Notice Board</label><input readonly type="text" id="display_info" name="display_info" value="Teachers only!"></div>
+			  	<div><label for="contact">Contact</label><input type="text" readonly id="contact" name="contact" value="Teachers only!"></div>
 
 		  		<button type="submit">Save</button>
 
@@ -476,7 +476,11 @@
 		</script>
 
 		<footer>
-			<h2><a href="https://isaac-portfolio.onrender.com">About developer</a></h2>
+			<h4> <a href="{% url 'messages' %}">Report problem&nbsp;</a></h4>
+
+			<h4><a href="https://isaac-portfolio.onrender.com">About developer</a></h4>
+			<h1 style="font-weight: 50"><a href="">&copy; Copy right, All right reserve</a></h1>
+
 		</footer>
 </body>
 </html>

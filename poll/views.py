@@ -42,7 +42,7 @@ def vote_home(request):
 			start_vote=False,
 			registration_complete=False,
 			show_results=False,
-			be_inform="Welcom",
+			be_inform="Welcome",
 			contact=233
 			)
 		return redirect('poll_board')
@@ -313,5 +313,6 @@ def complete_registration(request):
 		form = forms_forms.CompleteRegistrations(request.POST, request.FILES)
 		if form.is_valid():
 			form.save()
+			messages.success(request, f"You have successfully registrater as {request.user}.")
 			return redirect('poll_board')
 	return render(request, 'poll/complete_register.html', {"form": form})
