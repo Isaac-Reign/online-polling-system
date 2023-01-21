@@ -442,9 +442,11 @@
 			<li style="color: steelblue; line-height: 1.5">{{display_info}}. click the <a href="{% url 'about' %}">About</a> link for more.</li>
 			<hr>
 			<br>
-
+			{% if position %}
 			<h2 style="color: gray;">Vote For:</h2>
-
+			{% else %}
+			<h2 style="color: gray;">No poll created yet!</h2>
+			{% endif %}
 			{% for p in position %}
 			<h4 class="flex1">
 				<style>
