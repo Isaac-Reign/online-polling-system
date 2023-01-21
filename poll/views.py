@@ -121,6 +121,7 @@ def create_poll(request):
 		form = forms_forms.Polls(request.POST, request.FILES)
 		if form.is_valid():
 			form.save()
+			messages.success(request, "Contestant added successfully.")
 			return redirect('poll_board')
 	context = {"form": form, "position": position, 'page': page}
 	return render(request, 'poll/create_poll.html', context)
