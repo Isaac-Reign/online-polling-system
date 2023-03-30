@@ -247,7 +247,7 @@ def can_vote(request, person_id):
 		return redirect('voters')
 	return render(request, 'poll/can_vote.html', {"voters": voters})
 
-@login_required(login_url='please_login')
+
 def logout_user(request):
 	logout(request)
 	messages.success(request, "successfully logout, goodbye")
