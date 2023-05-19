@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-import sys
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,12 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = str(os.getenv("DEBUG"))
+DEBUG = str(os.getenv("DEBUG"))
 
-if (len(sys.argv) >= 2 and sys.argv[1] == 'runserver'):
-   DEBUG = True
-else:
-   DEBUG = False
+# if (len(sys.argv) >= 2 and sys.argv[1] == 'runserver'):
+#    DEBUG = True
+# else:
+#    DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -46,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'whitenoise.runserver_nostatic', # new
+    # 'whitenoise.runserver_nostatic', # new
     'poll'
 ]
 
