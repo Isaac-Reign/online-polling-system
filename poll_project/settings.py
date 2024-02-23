@@ -32,7 +32,7 @@ DEBUG = str(os.getenv("DEBUG"))
 #    DEBUG = True
 # else:
 #    DEBUG = False
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 
