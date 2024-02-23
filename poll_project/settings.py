@@ -23,8 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = str(os.getenv('SECRET_KEY'))
-SECRET_KEY = "django-insecure-v6i5_y)e5=t)(_z&r^rzn46@(_4qb5-7ko^(g77l^$mll0ay2q"
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
+#SECRET_KEY = "django-insecure-v6i5_y)e5=t)(_z&r^rzn46@(_4qb5-7ko^(g77l^$mll0ay2q"
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = str(os.getenv("DEBUG"))
 
@@ -128,13 +128,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-MEDIA_URL = '/images/'
+MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
      os.path.join(BASE_DIR, 'poll/static')
  ]
 
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'static/images')
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
