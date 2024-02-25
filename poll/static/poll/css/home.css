@@ -1,49 +1,5 @@
 
-	.mas {
-		position: absolute;
-		top: 10px;
-		border-radius: 5px;
-		transition: .3s;
-		left: 50%;
-		right: 50%;
-		transform: translate(-50%, 10%);
-		background-color: steelblue;
-		padding: 10px;
-		text-align: center;
-		width: 90%;
-		max-width: 800px;
-		color: #fff;
-		z-index: 2000;
-		font-family: sans-serif;
-		font-size: 18px;
-	}
-	.mas-container {
-		position: relative;
-		display: flex;
-		justify-content: flex-end;
-	}
-	.mas p {
-		margin: 8px 0;
-	}
-	.mas .close {
-		background-color: violet;
-		padding: 8px 21px;
-		border-radius: 8px;
-		cursor: pointer;
-	}
-	.container {
-		background-color: rgba(0, 0, 0, 0.175);
-		filter: blur(20px);
-	}
-	.remove-container {
-		background-color: inherit;
-		filter: blur(0);
-	}
-	.display-mas {
-		opacity: 0;
-		pointer-events: none;
-		top: -100px;
-	}
+
 
 *{
 			font-family: sans-serif;
